@@ -3,7 +3,11 @@ package lab;
 public final class RequestProcessor {
     public String processAuthenticated(String actor) {
         RequestContext.setActor(actor);
-        return "actor=" + RequestContext.actorOrAnonymous();
+        try {
+            return "actor=" + RequestContext.actorOrAnonymous();
+        } finally {
+            RequestContext.clear();
+        }
     }
 
     public String processAnonymous() {
